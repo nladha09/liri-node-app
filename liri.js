@@ -1,13 +1,13 @@
-// variable for dotenv package
-var dotEnv = require("dotenv").config();
 // variable to store the keys.js file (needs ./)
 var keysReference = require('./keys.js');
+
 // variable to access spotify key info
 var spotify = new Spotify(keys.spotify);
 
 // node package requirements
-var request = require("request");
-var Spotify = require('node-spotify-api');
+var dotEnv = require("dotenv").config();
+var axios = require("axios");
+var spotify = require('node-spotify-api');
 var moment = require("moment");
 moment().format();
 
@@ -43,7 +43,7 @@ function concertThis(artist) {
     // debugging queryURL.
     console.log(queryUrl);
 
-    request(queryUrl, function (error, response, body) {
+    axios(queryUrl, function (error, response, body) {
 
         // if the request is successful
         if (!error && response.statusCode === 200) {
@@ -113,7 +113,7 @@ function movieThis(movieQuery) {
     // This line is just to help us debug against the actual URL.
     console.log(queryUrl);
 
-    request(queryUrl, function (error, response, body) {
+    axios(queryUrl, function (error, response, body) {
 
         // If the request is successful
         if (!error && response.statusCode === 200) {
