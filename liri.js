@@ -1,3 +1,6 @@
+// putting on top for dotEnv stuff (do not put in variable)
+require("dotenv").config();
+
 // variable to store the keys.js file (needs ./)
 var keysReference = require('./keys.js');
 
@@ -5,7 +8,6 @@ var keysReference = require('./keys.js');
 var spotify = new Spotify(keys.spotify);
 
 // node package requirements
-var dotEnv = require("dotenv").config();
 var axios = require("axios");
 var spotify = require('node-spotify-api');
 var moment = require("moment");
