@@ -1,6 +1,6 @@
 # liri-node-app
 
-<video goes here>:
+<<video goes here>>:
 
 Search Spotify for songs, Bands in town for concerts and OMBD for movies.
 
