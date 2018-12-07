@@ -1,1 +1,1 @@
-# liri-nope-app
+# liri-node-app
