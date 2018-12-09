@@ -99,10 +99,15 @@ function concertThis(input) {
           console.log(concert.venue.city + ", " + concert.venue.region)
           console.log(moment(concert.datetime).format("dddd, MMMM Do YYYY, h:mm:ss a"));
           console.log("\n---------------------------\n")
-        })
-      }
-    );
-}
+            // fs.appendFile("log.txt", ``, function (err) {
+            // if (err) {
+            // return console.log(err);
+            // }
+            //   console.log("log.txt was updated!");
+            });
+          }
+        )}
+    // )};
 
 
 function spotifyThis(input) {
@@ -170,3 +175,13 @@ function doWhatItSays() {
     }
   });
 }
+
+// Function that writes all the data from output to the logfile - testing out appending
+// function writeToLog() {
+//   fs.appendFile("log.txt", output, function (err) {
+//   if (err) {
+//   return console.log(err);
+//   }
+//     console.log("log.txt was updated!");
+//   });
+// }
