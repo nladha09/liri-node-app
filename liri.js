@@ -1,13 +1,14 @@
 // add code to read and set any environment variables with the dotenv package:
 require("dotenv").config();
 
+// required node packages
 var moment = require("moment");
 var axios = require("axios");
-var keys = require('./keys.js');
 var Spotify = require('node-spotify-api');
+var inquirer = require("inquirer");
+var keys = require('./keys.js');
 var spotify = new Spotify(keys.spotify);
 var fs = require("fs");
-
 
 var whatToDo = process.argv[2];
 var input = process.argv.slice(3).join(" ");
@@ -31,60 +32,61 @@ function runLiri(whatToDo) {
     doIt();
   }
 }
+// ****need to fix inqurier and change time for concert-this using moment
 
-// var questions = [{
-//   type: 'list',
-//   name: 'programs',
-//   message: 'What would you like to do?',
-//   choices: ['Concert', 'Spotify', 'Movie', 'Do what it says']
-// },
-// {
-//   type: 'input',
-//   name: 'concertChoice',
-//   message: 'What\'s the name of the artist you would like to search?',
-//   when: function (answers) {
-//       return answers.programs == 'Concert';
-//   }
-// },
-// {
-//   type: 'input',
-//   name: 'movieChoice',
-//   message: 'What\'s the name of the movie you would like to search?',
-//   when: function (answers) {
-//       return answers.programs == 'Movie';
-//   }
-// },
-// {
-//   type: 'input',
-//   name: 'songChoice',
-//   message: 'What\'s the name of the song you would like to search?',
-//   when: function (answers) {
-//       return answers.programs == 'Spotify';
-//   }
-// },
-// ];
+var questions = [{
+  type: 'list',
+  name: 'programs',
+  message: 'What would you like to do?',
+  choices: ['Concert', 'Spotify', 'Movie', 'Do what it says']
+},
+{
+  type: 'input',
+  name: 'concertChoice',
+  message: 'What\'s the name of the artist you would like to search?',
+  when: function (answers) {
+      return answers.programs == 'Concert';
+  }
+},
+{
+  type: 'input',
+  name: 'movieChoice',
+  message: 'What\'s the name of the movie you would like to search?',
+  when: function (answers) {
+      return answers.programs == 'Movie';
+  }
+},
+{
+  type: 'input',
+  name: 'songChoice',
+  message: 'What\'s the name of the song you would like to search?',
+  when: function (answers) {
+      return answers.programs == 'Spotify';
+  }
+},
+];
 
-// inquirer
-// .prompt(questions)
-// .then(answers => {
-//   // Depending on which program the user chose to run it will do the function for that program
-//   switch (answers.programs) {
-//       case 'Concert':
-//           concertThis(answers.concertChoice);
-//           break;
-//       case 'Spotify':
-//           spotifyThis(answers.songChoice);
-//           break;
-//       case 'Movie':
-//           movieThis(answers.movieChoice);
-//           break;
-//       case 'Do what it says':
-//           doWhatItSays();
-//           break;
-//       default:
-//           console.log('LIRI doesn\'t know that');
-//   }
-// });
+inquirer
+.prompt(questions)
+.then(answers => {
+  // Depending on which program the user chose to run it will do the function for that program
+  switch (answers.programs) {
+      case 'Concert':
+          concertThis(answers.concertChoice);
+          break;
+      case 'Spotify':
+          spotifyThis(answers.songChoice);
+          break;
+      case 'Movie':
+          movieThis(answers.movieChoice);
+          break;
+      case 'Do what it says':
+          doWhatItSays();
+          break;
+      default:
+          console.log('LIRI doesn\'t know that');
+  }
+});
 
 function concertThis(input) {
 
@@ -151,7 +153,7 @@ function movieThis(input) {
     )
 };
 
-function doIt() {
+function doWhatItSays() {
 
   fs.readFile("random.txt", "utf8", function (error, data) {
     var arr = data.split(",");
