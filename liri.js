@@ -32,7 +32,7 @@ function runLiri(whatToDo) {
     doIt();
   }
 }
-// ****need to fix inqurier and change time for concert-this using moment
+// ****need to change time for concert-this using moment
 
 var questions = [{
   type: 'list',
@@ -69,7 +69,7 @@ var questions = [{
 inquirer
 .prompt(questions)
 .then(answers => {
-  // Depending on which program the user chose to run it will do the function for that program
+  // depending on which program the user chooses to run it will do the function for that program
   switch (answers.programs) {
       case 'Concert':
           concertThis(answers.concertChoice);
@@ -89,28 +89,23 @@ inquirer
 });
 
 function concertThis(input) {
-
   // console.log(input);
   axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp")
     .then(
       function (response) {
-
-        // console.log("\n---------------------------------------------------\n")
         // console.log(response.data);
         response.data.forEach(concert => {
           console.log(concert.venue.name)
           console.log(concert.venue.city + ", " + concert.venue.region)
-          console.log(concert.datetime)
-          console.log("---------------------------")
+          console.log(moment(concert.datetime).format("dddd, MMMM Do YYYY, h:mm:ss a"));
+          console.log("\n---------------------------\n")
         })
-        // console.log("\n---------------------------------------------------\n")
       }
     );
 }
 
 
 function spotifyThis(input) {
-
   if (!input) {
     input = "ace+of+base+the+sign";
   }
@@ -124,7 +119,6 @@ function spotifyThis(input) {
     console.log("Preview: " + data.tracks.items[3].preview_url)
     console.log("Album: " + data.tracks.items[0].album.name);
     console.log("\n---------------------------------------------------\n")
-
   });
 }
 
@@ -134,11 +128,9 @@ function movieThis(input) {
   if (!input) {
     input = "mr+nobody";
   }
-
   axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy")
     .then(
       function (response) {
-
         console.log("\n---------------------------------------------------\n")
         console.log("Title: " + response.data.Title);
         console.log("Year: " + response.data.Year);
@@ -167,7 +159,6 @@ function doWhatItSays() {
     if (error) {
       return console.log(error);
     }
-
     if (task === "concert-this") {
       concertThis(input);
     }
@@ -177,6 +168,5 @@ function doWhatItSays() {
     if (task === "movie-this") {
       movieThis(input);
     }
-
   });
 }
