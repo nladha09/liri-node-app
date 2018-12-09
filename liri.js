@@ -1,183 +1,180 @@
-// putting on top for dotEnv stuff (do not put in variable)
+// add code to read and set any environment variables with the dotenv package:
 require("dotenv").config();
 
-// variable to store the keys.js file (needs ./)
-var keysReference = require('./keys.js');
-
-// variable to access spotify key info
-var spotify = new Spotify(keys.spotify);
-
-// node package requirements
-var axios = require("axios");
-var spotify = require('node-spotify-api');
 var moment = require("moment");
-moment().format();
-
-// for readFile .txt
-var fs = require('fs');
-
-// adding inquirer for better UX
-var inquirer = require("inquirer");
-
-// inquirer
-//         .prompt([
-//             {
-//                 type: "input",
-//                 message: "Hi, I'm Liri - what is your name?",
-//                 name: "intro"
-//             },
-//         ])
-//         .then(function (answer) {
-//          console.log("\nHi " + answer.intro + ", what would you like to search for?");
-//             }
-//         });
-
-//variable for input
-var command = process.argv[2];
-var input = process.argv[3];
-
-// `concert-this`
-function concertThis(artist) {
-
-    // Then run a request to the OMDB API with the movie specified
-    var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp#";
-    // `movieQuery`
-    // debugging queryURL.
-    console.log(queryUrl);
-
-    axios(queryUrl, function (error, response, body) {
-
-        // if the request is successful
-        if (!error && response.statusCode === 200) {
-
-            var concertData = JSON.parse(body);
-
-            var concertDT = concertData[0].datetime
-            var momentDT = moment().format('L');
+var axios = require("axios");
+var keys = require('./keys.js');
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify(keys.spotify);
+var fs = require("fs");
 
 
-            // console.log(concertData);
-            // for (i = 0; i < movieData.length && i < 5; i++) {
-            console.log("===============================");
-            // * Name of the venue
-            console.log("Venue Name : " + concertData[0].venue.name +
-                // * Venue location
-                "\nVenue Location: " + concertData[0].venue.city + "," + concertData[0].venue.country +
-                //  * Date of the Event (use moment to format this as "MM/DD/YYYY")
-                "\nDate of the Event: " + momentDT +
-                "\n===============================");
+var whatToDo = process.argv[2];
+var input = process.argv.slice(3).join(" ");
 
-        };
-    });
-};
-// `spotify-this-song`
-function spotifyThis(musicSearch) {
+// console.log(whatToDo);
 
-    //  * If no song is provided then your program will default to "The Sign" by Ace of Base.
-    if (musicSearch === undefined || null) {
-        musicSearch = "The Sign Ace of Base";
-    }
+runLiri(whatToDo);
 
-    spotify.search({ type: 'track', query: musicSearch }, function (err, data) {
-        if (err) {
-            return console.log('Error occurred: ' + err);
-        }
+function runLiri(whatToDo) {
 
-        else {
-            for (i = 0; i < data.tracks.items.length && i < 5; i++) {
-
-                var musicQuery = data.tracks.items[i];
-                // * Artist(s)
-                console.log("Artist: " + musicQuery.artists[0].name +
-                    // * The song's name
-                    "\nSong Name: " + musicQuery.name +
-                    //* A preview link of the song from Spotify
-                    "\nLink to Song: " + musicQuery.preview_url +
-                    //* The album that the song is from
-                    "\nAlbum Name: " + musicQuery.album.name +
-                    "\n===============================");
-            }
-        };
-    });
+  if (whatToDo === "concert-this") {
+    concertThis(input);
+  }
+  if (whatToDo === "spotify-this-song") {
+    spotifyThis(input);
+  }
+  if (whatToDo === "movie-this") {
+    movieThis(input);
+  }
+  if (whatToDo === "do-what-it-says") {
+    doIt();
+  }
 }
 
-// * `movie-this`
-function movieThis(movieQuery) {
+// var questions = [{
+//   type: 'list',
+//   name: 'programs',
+//   message: 'What would you like to do?',
+//   choices: ['Concert', 'Spotify', 'Movie', 'Do what it says']
+// },
+// {
+//   type: 'input',
+//   name: 'concertChoice',
+//   message: 'What\'s the name of the artist you would like to search?',
+//   when: function (answers) {
+//       return answers.programs == 'Concert';
+//   }
+// },
+// {
+//   type: 'input',
+//   name: 'movieChoice',
+//   message: 'What\'s the name of the movie you would like to search?',
+//   when: function (answers) {
+//       return answers.programs == 'Movie';
+//   }
+// },
+// {
+//   type: 'input',
+//   name: 'songChoice',
+//   message: 'What\'s the name of the song you would like to search?',
+//   when: function (answers) {
+//       return answers.programs == 'Spotify';
+//   }
+// },
+// ];
 
-    // * If the user doesn't type a movie in, the program will output data for the movie 'Mr.Nobody.'
-    if (movieQuery === undefined || null) {
-        movieQuery = "Mr.Nobody";
+// inquirer
+// .prompt(questions)
+// .then(answers => {
+//   // Depending on which program the user chose to run it will do the function for that program
+//   switch (answers.programs) {
+//       case 'Concert':
+//           concertThis(answers.concertChoice);
+//           break;
+//       case 'Spotify':
+//           spotifyThis(answers.songChoice);
+//           break;
+//       case 'Movie':
+//           movieThis(answers.movieChoice);
+//           break;
+//       case 'Do what it says':
+//           doWhatItSays();
+//           break;
+//       default:
+//           console.log('LIRI doesn\'t know that');
+//   }
+// });
+
+function concertThis(input) {
+
+  // console.log(input);
+  axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp")
+    .then(
+      function (response) {
+
+        // console.log("\n---------------------------------------------------\n")
+        // console.log(response.data);
+        response.data.forEach(concert => {
+          console.log(concert.venue.name)
+          console.log(concert.venue.city + ", " + concert.venue.region)
+          console.log(concert.datetime)
+          console.log("---------------------------")
+        })
+        // console.log("\n---------------------------------------------------\n")
+      }
+    );
+}
+
+
+function spotifyThis(input) {
+
+  if (!input) {
+    input = "ace+of+base+the+sign";
+  }
+  spotify.search({ type: 'track', query: input }, function (err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+    console.log("\n---------------------------------------------------\n")
+    console.log("Artist: " + data.tracks.items[0].artists[0].name)
+    console.log("Song: " + data.tracks.items[0].name)
+    console.log("Preview: " + data.tracks.items[3].preview_url)
+    console.log("Album: " + data.tracks.items[0].album.name);
+    console.log("\n---------------------------------------------------\n")
+
+  });
+}
+
+
+function movieThis(input) {
+
+  if (!input) {
+    input = "mr+nobody";
+  }
+
+  axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy")
+    .then(
+      function (response) {
+
+        console.log("\n---------------------------------------------------\n")
+        console.log("Title: " + response.data.Title);
+        console.log("Year: " + response.data.Year);
+        console.log("IMDB Rating: " + response.data.imdbRating);
+        console.log("Rotten Tomatoes: " + response.data.Ratings[1]);
+        console.log("Country: " + response.data.Country);
+        console.log("Language: " + response.data.Language);
+        console.log("Movie Plot: " + response.data.Plot);
+        console.log("Actors: " + response.data.Actors);
+        console.log("\n---------------------------------------------------\n")
+      }
+    )
+};
+
+function doIt() {
+
+  fs.readFile("random.txt", "utf8", function (error, data) {
+    var arr = data.split(",");
+    var task = arr[0];
+    var input = arr[1].split('"').join('');
+
+    console.log(arr);
+    console.log(task);
+    console.log(input);
+
+    if (error) {
+      return console.log(error);
     }
 
-    // Then run a request to the OMDB API with the movie specified
-    var queryUrl = "http://www.omdbapi.com/?t=" + movieQuery + "&y=&plot=short&apikey=trilogy";
+    if (task === "concert-this") {
+      concertThis(input);
+    }
+    if (task === "spotify-this-song") {
+      spotifyThis(input);
+    }
+    if (task === "movie-this") {
+      movieThis(input);
+    }
 
-    // This line is just to help us debug against the actual URL.
-    console.log(queryUrl);
-
-    axios(queryUrl, function (error, response, body) {
-
-        // If the request is successful
-        if (!error && response.statusCode === 200) {
-            // JSON.parse for legibility
-            var movieData = JSON.parse(body);
-
-            // for (i = 0; i < movieData.length && i < 5; i++) {
-            console.log("===============================");
-            // * Title of the movie.              
-            console.log("Movie Title: " + movieData.Title +
-                // * Year the movie came out.
-                "\nYear: " + movieData.released +
-                // * IMDB Rating of the movie.
-                "\nIMDB Rating: " + movieData.imdbRating +
-                // * Rotten Tomatoes Rating of the movie.
-                "\nRotten Tomatoes Rating: " + movieData.Ratings[1].Value +
-                // * Country where the movie was produced.
-                "\nCountry: " + movieData.Country +
-                // * Language of the movie.
-                "\nLanguage: " + movieData.Language +
-                // * Plot of the movie.
-                "\nPlot: " + movieData.Plot +
-                // * Actors in the movie.
-                "\nActors: " + movieData.Actors +
-                "\n===============================");
-        };
-    });
-};
-
-// switch for commands for all functions
-var ask = function (commands, infoData) {
-    switch (commands) {
-        case "concert-this":
-            concertThis(infoData);
-            break;
-        case "movie-this":
-            movieThis(infoData);
-            break;
-        case 'spotify-this-song':
-            spotifyThis(infoData);
-            break;
-        case 'do-what-it-says':
-            doWhatItSays();
-            break;
-        default:
-            console.log("Invalid command. Please try again");
-    };
-};
-
-// do what it says reads text from random.txt file, command is ran
-var doWhatItSays = function () {
-    fs.readFile("random.txt", "utf8", function (err, data) {
-        if (err) throw err;
-        var randomText = data.split(",");
-
-        if (randomText.length == 2) {
-            ask(randomText[0], randomText[1]);
-        }
-        else if (randomText.length == 1) {
-            ask(randomText[0]);
-        };
-    });
-};
-// assigns args to ask for switch case
-ask(command, input);
+  });
+}
