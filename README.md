@@ -1,6 +1,10 @@
 # liri-node-app
 
---video goes here--:
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
+    <source src="path/to/video.mp4" type="video/mp4">
+  </video>
+</figure>
 
 Search Spotify for songs, Bands in town for concerts and OMBD for movies.
 
@@ -12,17 +16,20 @@ Use node to run this program. Use node liri.js then run one of the following com
 * `movie-this`
 * `do-what-it-says`
 
-### When running a command follow it by desired text/search.
+### Inquirier will ask you "What would you like to do?"
 Example:
-node liri.js movie-this underworld
+Concert
+Spotify
+Movie
+Do what it says
 
-### When concert-this command is used you will be provided with:
+### Selecting "Concert" you will be provided with:
 
 * Name of the venue
 * Venue location
 * Date of the Event
 
-### When spotify-this-song command is used you will be provided with:
+### Selecting "Spotify" you will be provided with:
 
 * Artist(s)
 * The song's name
@@ -30,7 +37,7 @@ node liri.js movie-this underworld
 * The album that the song is from
 * If no song is provided then your program will default to "The Sign" by Ace of Base.
 
-### When movie-this command is used you will be provided with:
+### Selecting "Movie" you will be provided with:
 
 * Title of the movie.
 * Year the movie came out.
@@ -42,12 +49,12 @@ node liri.js movie-this underworld
 * Actors in the movie.
 * If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.
 
-### When do-what-it-says command:
+### Selecting "Do what it says" :
 A random.txt file with search for spotify-this-song "I want it that way." This will give you the spotify results of "I want it that way."
 
 ### Technologies Used
 * JavaScript
-* Node.js
+* Node.js (axios, inqurier, moment)
 * Spotify API
 * Bands in Town API
 * OMDB API
