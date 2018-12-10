@@ -1,6 +1,8 @@
 # liri-node-app
 
-See video walkthrough here (full screen has better view) -> https://drive.google.com/file/d/1-PQKsU95OHgkSKqUyLhwLfQSS4j4gjvV/view?usp=sharing
+See video walkthrough here (full screen has better view) -> 
+
+https://drive.google.com/file/d/1-PQKsU95OHgkSKqUyLhwLfQSS4j4gjvV/view?usp=sharing
 
 Search Spotify for songs, Bands in town for concerts and OMBD for movies.
 
