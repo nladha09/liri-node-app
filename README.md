@@ -10,6 +10,7 @@ https://drive.google.com/file/d/1-PQKsU95OHgkSKqUyLhwLfQSS4j4gjvV/view?usp=shari
 Use node to run this program. Use node liri.js then run one of the following comands, then add search text:
 
 ### Inquirier will ask you "What would you like to do?"
+
 Example:
 * Concert ( * `concert-this`)
 * Spotify ( * `spotify-this-song`)
@@ -43,7 +44,9 @@ Example:
 * If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.
 
 ### Selecting "Do what it says" :
-A random.txt file with search for spotify-this-song "I want it that way." This will give you the spotify results of "I want it that way."
+
+A random.txt file with search for spotify-this-song "I want it that way." 
+This will give you the spotify results of "I want it that way."
 
 ### Technologies Used
 * JavaScript
