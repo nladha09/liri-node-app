@@ -2,7 +2,7 @@
 
 <figure class="video_container">
   <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
-    <source src="path/to/video.mp4" type="video/mp4">
+    <source src="https://drive.google.com/file/d/1-PQKsU95OHgkSKqUyLhwLfQSS4j4gjvV/view?usp=sharing" type="video/mp4">
   </video>
 </figure>
 
