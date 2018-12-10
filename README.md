@@ -11,10 +11,10 @@ Use node to run this program. Use node liri.js then run one of the following com
 
 ### Inquirier will ask you "What would you like to do?"
 Example:
-Concert ( * `concert-this`)
-Spotify ( * `spotify-this-song`)
-Movie ( * `movie-this`)
-Do what it says ( * `do-what-it-says`)
+* Concert ( * `concert-this`)
+* Spotify ( * `spotify-this-song`)
+* Movie ( * `movie-this`)
+* Do what it says ( * `do-what-it-says`)
 
 ### Selecting "Concert" you will be provided with:
 
