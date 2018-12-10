@@ -9,17 +9,12 @@ https://drive.google.com/file/d/1-PQKsU95OHgkSKqUyLhwLfQSS4j4gjvV/view?usp=shari
 ## How to use 
 Use node to run this program. Use node liri.js then run one of the following comands, then add search text:
 
-* `concert-this`
-* `spotify-this-song`
-* `movie-this`
-* `do-what-it-says`
-
 ### Inquirier will ask you "What would you like to do?"
 Example:
-Concert
-Spotify
-Movie
-Do what it says
+Concert ( * `concert-this`)
+Spotify ( * `spotify-this-song`)
+Movie ( * `movie-this`)
+Do what it says ( * `do-what-it-says`)
 
 ### Selecting "Concert" you will be provided with:
 
