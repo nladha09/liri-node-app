@@ -2,9 +2,7 @@
 
 Search Spotify for songs, Bands in town for concerts and OMBD for movies.
 
-See video walkthrough here (full screen has better view) -> 
-
-https://drive.google.com/file/d/1-PQKsU95OHgkSKqUyLhwLfQSS4j4gjvV/view?usp=sharing
+[See video walkthrough here (full screen has better view)](https://drive.google.com/file/d/1-PQKsU95OHgkSKqUyLhwLfQSS4j4gjvV/view?usp=sharing)
 
 ## How to use 
 Use node to run this program. Use node liri.js then run one of the following comands, then add search text:
