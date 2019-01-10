@@ -1,4 +1,4 @@
-# liri-node-app
+# liri-node-app :musical_note:
 
 Search Spotify for songs, Bands in town for concerts and OMBD for movies.
 
